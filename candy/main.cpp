@@ -12,22 +12,19 @@ int main(){
     std::vector<int> left(n);
     left[0] = 1;
     for (int i = 1; i < n; ++i){
-        if(nums[i] > nums[i -1])
+        if(i > 0 && nums[i] > nums[i -1])
             left[i] = left[i - 1] + 1;
         else
             left[i] = 1;
     }
-    std::vector<int> right(n - 1);
-    for (int i = n - 2; i >= 0; --i){
-        if(nums[i] > nums[i + 1])
-            right[i] = right[i + 1] + 1;
+    int right = 0, ans = 0;
+    for (int i = n - 1; i >= 0; i--){
+        if(i < n - 1 && nums[i] > nums[i + 1])
+            right++;
         else
-            right[i] = 1;
+            right = 1;
+        ans += std::max(left[i], right);
     }
-
-    int ans = 0;
-    for (int i = 0; i < n; ++i){
-        ans += std::max(left[i], right[i]);
-    }
-    std::cout << ans << std::endl;
+        std::cout << ans << std::endl;
+    return 0;
 }

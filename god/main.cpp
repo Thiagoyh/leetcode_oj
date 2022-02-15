@@ -23,13 +23,16 @@ int main(){
                   return a.x + a.y < b.x + b.y;
               });
     if(n == 1){
-        std::cout << -a[0].x << std::endl;
+        std::cout << -a[0].y << std::endl;
         return 0;
     }
     int ans = 0;
-    for (int i = 0; i < n - 1; ++i){
+    int res = -a[0].y;
+    for (int i = 0; i < n - 1; ++i)
+    {
         ans += a[i].x;
+        res = std::max(res, ans - a[i + 1].y);
     }
-    std::cout << ans - a[n - 1].y << std::endl;
+    std::cout << res << std::endl;
     return 0;
 }
