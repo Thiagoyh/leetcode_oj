@@ -11,6 +11,10 @@ int main(){
     }
 
     //algorithm
+    /*
+    * map是用红黑树实现的
+    * unodered_map是用hash表实现的
+    */
     std::vector<int> res;
     std::unordered_map<char, int> map;
 
