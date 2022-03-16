@@ -1,5 +1,7 @@
 package com.lewis.leetcode;
 
+
+// 前缀树
 public class TrieTree {
     public static class TrieNode{
         public int pass;
