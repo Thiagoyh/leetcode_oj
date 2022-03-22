@@ -32,5 +32,16 @@ public class TigerApple {
          return (rest % 6 == 0) ? (rest / 6) : -1;
      }
 
-     
+     //最优解 大约有4成的整数输入整数输出的题可以这么干
+    public static int minBag(int apple){
+         if((apple & 1) != 0){
+             return -1;
+         }
+         if(apple < 18){
+             return apple == 0 ? 0 : (apple == 6 || apple == 8) ? 1 :
+                     (apple == 12 || apple == 14 || apple == 16) ? 2 : -1;
+         }
+         return (apple - 18) / 8 + 3;
+    }
+
 }
