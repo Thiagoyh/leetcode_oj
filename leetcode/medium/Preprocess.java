@@ -46,6 +46,7 @@ public class Preprocess {
      }
 
      // 用一个数组统计0-i上R的数量
+    // 频繁查询的部分生成辅助数组
     public static int mainPaint(String s){
          char[] str = s.toCharArray();
          int[] numOfR = new int[str.length];
