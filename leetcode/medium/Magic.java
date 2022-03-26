@@ -13,12 +13,49 @@ package com.lewis.leetcode.medium;
  * 问: 最多可以进行多少次magic操作
  */
 
-import java.util.Arrays;
+// 集合是去重的数组
+
+
+import java.util.TreeSet;
 
 public class Magic {
     public static int numMagic(int[] a, int[] b){
-        Arrays.sort(a);
-        Arrays.sort(b);
-        
+        TreeSet<Integer> setA = new TreeSet<>();
+        TreeSet<Integer> setB = new TreeSet<>();
+        int sumA = 0, sumB = 0;
+        int lengthA = a.length, lengthB = b.length;
+        for(int i = 0; i < lengthA; ++i){
+            setA.add(a[i]);
+            sumA += a[i];
+        }
+        double averageA = sumA / lengthA;
+        for(int i = 0; i < lengthB; ++i){
+            setB.add(b[i]);
+            sumB += b[i];
+        }
+        double averageB = sumB / lengthB;
+        int count = 0;
+        while(!setA.isEmpty()){
+            int popA = setA.pollFirst();
+            sumA -= popA;
+            lengthA--;
+            double tmpA = sumA / lengthA;
+            if(tmpA <= averageA){
+                break;
+            }
+            if(setB.contains(popA)){
+                continue;
+            }
+            sumB += popA;
+            lengthB++;
+            double tmpB = sumB / lengthB;
+            if(tmpB <= averageB){
+                break;
+            }
+            averageA = tmpA;
+            averageB = tmpB;
+            ++count;
+        }
+        return count;
     }
 }
