@@ -37,7 +37,7 @@ public class Brackets {
         // dp[i]表示从i位置结束最长的有效长度
         int pre = 0;
         int res = 0;
-        for (int i = 0; i < str.length; ++i){
+        for (int i = 1; i < str.length; ++i){
             if(str[i] == ')'){
                 pre = i - dp[i - 1] - 1;
                 if(pre >= 0 && str[pre] == '('){
