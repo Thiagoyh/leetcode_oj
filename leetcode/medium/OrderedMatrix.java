@@ -1,5 +1,9 @@
 package com.lewis.leetcode.medium;
 
+/*
+ * 复杂度O(n+m)
+ */
+
 public class OrderedMatrix {
     public static boolean inMatrix(int[][] mat, int n){
         if(mat.length == 0){
