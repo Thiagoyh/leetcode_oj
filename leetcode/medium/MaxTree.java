@@ -13,6 +13,8 @@ public class MaxTree {
 
     public static int max = Integer.MIN_VALUE;
 
+    // 以x为头的整棵树上, 求这个问题的解
+    // x往左走, x往右走
     public static int f(Node x){
         if(x.left == null && x.right == null){
             return x.value;
