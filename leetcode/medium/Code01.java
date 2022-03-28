@@ -22,13 +22,10 @@ public class Code01 {
         int length = arr.length;
         // 先把i之前的算出来
         int[] leftArr = new int[length];
-        int leftRes = 0;
-
         for(int i = 0; i < length; ++i){
-            leftRes += arr[i];
-            leftArr[i] = leftRes;
+            sum += arr[i];
+            leftArr[i] = sum;
         }
-        sum = leftArr[length - 1];
         if(sum % length != 0){
             return -1;
         }
