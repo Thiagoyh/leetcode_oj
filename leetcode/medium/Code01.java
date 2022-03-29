@@ -21,47 +21,29 @@ public class Code01 {
         int sum = 0, avg = 0;
         int length = arr.length;
         // 先把i之前的算出来
-        int[] leftArr = new int[length];
         for(int i = 0; i < length; ++i){
             sum += arr[i];
-            leftArr[i] = sum;
         }
         if(sum % length != 0){
             return -1;
         }
+
         avg = sum / length;
+        int leftSum = 0;
         int res = 0;
 
         for(int i = 0; i < length; ++i){
-            int leftSum = 0, rightSum = 0;
-            int cur = 0;
-            if(i == 0){
-                cur = Math.abs(arr[0] - avg);
-                continue;
-            }
-            if(i == length - 1){
-                cur = Math.abs(avg - arr[length - 1]);
-                res = cur > res ? cur : res;
-                continue;
-            }
-
-            // 普适情况
-            leftSum = leftArr[i - 1];
-            rightSum = sum - arr[i];
-            rightSum = rightSum - leftSum;
-
-            // 左边需要avg * i
-            int left = leftSum - avg * i;
-            int right = rightSum - avg * (length - i - 1);
-            if(left < 0 && right < 0){
-                cur = -left - right;
-                res = cur > res ? cur : res;
+            int leftRest = leftSum - avg * i;
+            int rightRest = sum - leftSum - arr[i] - (length - i - 1) * avg;
+            if(leftRest < 0 && rightRest < 0){
+                res = (-leftRest - rightRest) > res ? (-leftRest - rightRest) : res;
             }
             else{
-                cur = Math.max(Math.abs(left), Math.abs(right));
-                res = cur > res ? cur : res;
+                res = Math.max(Math.max(Math.abs(leftRest), Math.abs(rightRest)), res);
             }
+            leftSum += arr[i];
         }
+
         return res;
     }
 
