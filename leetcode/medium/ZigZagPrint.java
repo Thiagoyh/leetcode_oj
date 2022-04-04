@@ -1,50 +1,44 @@
 package com.lewis.leetcode.medium;
 
 public class ZigZagPrint {
-    public static void slashPrint(int[][] mat, int ax, int ay, int bx, int by, boolean flag){
-        // 左下到右上(ax, ay)到(bx, by)
-        if(flag){
-            while(ax <= bx){
-                System.out.println(mat[bx--][by++]);
-            }
+    public static void printMatrixZigZag(int[][] mat){
+        int ax = 0, ay = 0;
+        int bx = 0, by = 0;
+        int endR = mat.length - 1;
+        int endD = mat[0].length - 1;
+        boolean flag = false;
+        while(ax != endR + 1){
+            printLine(mat, ax, ay, bx, by, flag);
+            ax = ay == endD ? ax + 1 : ax;
+            ay = ay == endD ? ay : ay + 1;
+            bx = bx == endR ? bx : bx + 1;
+            by = bx == endR ? by + 1 : by;
+            flag = !flag;
         }
-        // 右上到左下
-        else {
-            while (ay >= by){
-                System.out.println(mat[ax++][ay--]);
-            }
-        }
+        System.out.println();
     }
 
-    public static void print(int[][] mat){
-        int m = mat.length;
-        int n = mat[0].length;
-
-        int ax = 0, ay = 0, bx = 0, by = 0;
-        boolean flag = true;
-        for (int i = 0; i < m + n -1; ++i){
-            slashPrint(mat, ax, ay, bx, by, flag);
-            if(i < m - 1){
-                bx++;
+    public static void printLine(int[][] mat, int ax, int ay, int bx, int by, boolean flag){
+        if(flag){
+            while(ax != bx + 1){
+                System.out.print(mat[ax][ay] + " ");
+                ax++;
+                ay--;
             }
-            else{
+        }
+        else {
+            while(bx != ax - 1){
+                System.out.print(mat[bx][by] + " ");
+                bx--;
                 by++;
             }
-            if(i < n - 1){
-                ay++;
-            }
-            else {
-                ay = n -1;
-                ax++;
-            }
-            flag = !flag;
         }
     }
 
     public static void main(String[] args) {
         int[][] mat = {{1, 2, 3, 4},
-                {5, 6, 7, 8},
-                {9, 10, 11, 12}};
-        print(mat);
+                       {5, 6, 7, 8},
+                       {9, 10, 11, 12}};
+        printMatrixZigZag(mat);
     }
 }
