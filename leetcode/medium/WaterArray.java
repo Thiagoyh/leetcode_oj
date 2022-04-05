@@ -18,30 +18,35 @@ public class WaterArray {
          if(arr == null){
              return 0;
          }
-         int[] maxLeft = new int[arr.length];
-         int[] maxRight = new int[arr.length];
-         int max = arr[0];
-         for(int i = 1; i < arr.length; ++i){
-             max = max > arr[i - 1] ? max : arr[i - 1];
-             maxLeft[i] = max;
-         }
-         max = arr[arr.length - 1];
-         for(int i = arr.length - 2; i >= 0; i--){
-             max = max > arr[i + 1] ? max : arr[i + 1];
-             maxRight[i] = max;
-         }
-
          int res = 0;
-         for(int i = 1; i < arr.length - 1; ++i){
-             if(maxLeft[i] > arr[i] && maxRight[i] > arr[i]){
-                 res += (Math.min(maxLeft[i], maxRight[i]) - arr[i]);
+         int maxLeft = arr[0];
+         int maxRight = arr[arr.length - 1];
+         int l = 1, r = arr.length - 2;
+         while (l <= r){
+             if(maxLeft > maxRight){
+                 if(arr[r] < maxRight){
+                     res += (maxRight - arr[r]);
+                 }
+                 else {
+                     maxRight = arr[r];
+                 }
+                 r--;
+             }
+             else {
+                 if(arr[l] < maxLeft){
+                     res += (maxLeft - arr[l]);
+                 }
+                 else{
+                     maxLeft = arr[l];
+                 }
+                 l++;
              }
          }
          return res;
      }
 
     public static void main(String[] args) {
-        int[] arr = {0,1,0,2,1,0,1,3,2,1,2,1};
+        int[] arr = {4,2,0,3,2,5};
         System.out.println(waterSum(arr));
     }
 }
