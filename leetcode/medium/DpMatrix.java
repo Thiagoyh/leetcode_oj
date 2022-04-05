@@ -43,11 +43,34 @@ public class DpMatrix {
         return dp[0][0];
     }
 
+    public static int minSum(int[][] mat){
+        int[] dp = new int[mat[0].length];
+        dp[mat[0].length - 1] = mat[mat.length - 1][mat[0].length - 1];
+
+        for(int i = mat[0].length - 2; i >= 0; i--){
+            dp[i] = mat[mat.length - 1][i] + dp[i + 1];
+        }
+
+        int n = mat.length - 1;
+        while(n >= 0){
+            n--;
+            if(n < 0)
+                break;
+            dp[mat[0].length - 1] += mat[n][mat[0].length - 1];
+            for(int j = 0; j < mat[0].length - 1; j++){
+                dp[mat[0].length - 2 - j] = mat[n][mat[0].length - 2 - j]
+                         + Math.min(dp[mat[0].length - 1 - j], dp[mat[0].length - 2 - j]);
+            }
+        }
+        return dp[0];
+    }
+
     public static void main(String[] args) {
-        int[][] mat = {{1, 2, 3},
-                {4, 5, 6},
-                {7, 8, 9}};
+        int[][] mat = {{1, 2, 3, 1},
+                {4, 5, 6, 2},
+                {7, 8, 9, 5}};
         System.out.println(minSum(mat, 0, 0));
         System.out.println(minSum2(mat));
+        System.out.println(minSum(mat));
     }
 }
