@@ -16,7 +16,7 @@ public class KMPStr {
             if(str1[i1] == str2[i2]){
                 i1++;
                 i2++;
-            }else if (next[i2] == -1){
+            }else if (i2 == 0){  // next[i2] == -1;
                 i1++;
             }else{
                 i2 = next[i2];
