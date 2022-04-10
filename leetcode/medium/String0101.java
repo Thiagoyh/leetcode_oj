@@ -14,6 +14,53 @@ package com.lewis.leetcode.medium;
 
 public class String0101 {
     public static int fibonacci(int n){
+         if(n <= 0){
+             return 0;
+         }
+         if(n == 1 || n == 2 || n == 3){
+             return n;
+         }
+         int[][] base = {{1, 1},
+                   {1, 0}};
+         int[][] res = matrixPower(base, n - 2);
+         return 2 * res[0][0] + res[0][1];
+    }
 
+    public static int[][] matrixPower(int[][] base, int p){
+        if(base.length != base[0].length){
+            throw new RuntimeException("Please input square matrix");
+        }
+        int[][] res = new int[base.length][base[0].length];
+        for(int i = 0; i < res.length; i++){
+            res[i][i] = 1;
+        }
+
+        int[][] tmp = base;
+        for(; p != 0; p >>= 1){
+            if((p & 1) != 0){
+                res = matrixMulti(tmp, res);
+            }
+            tmp = matrixMulti(tmp, tmp);
+        }
+        return res;
+    }
+
+    public static int[][] matrixMulti(int[][] m1, int[][] m2){
+        if(m1[0].length != m2.length){
+            throw new RuntimeException("m1 cant multi m2");
+        }
+        int[][] res = new int[m1.length][m2[0].length];
+        for(int i = 0; i < m1.length; ++i){
+            for(int j = 0; j < m2[0].length; ++j){
+                for(int k = 0; k < m2.length; ++k){
+                    res[i][j] += m1[i][k] * m2[k][j];
+                }
+            }
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(fibonacci(7));
     }
 }
