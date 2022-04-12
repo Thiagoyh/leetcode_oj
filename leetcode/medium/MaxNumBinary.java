@@ -43,6 +43,34 @@ public class MaxNumBinary {
         int min = x.val;
         int max = x.val;
 
-
+        if(leftInfo != null){
+            min = Math.min(min, leftInfo.min);
+            max = Math.max(max, rightInfo.max);
+        }
+        if(rightInfo != null){
+            min = Math.min(min, rightInfo.min);
+            max = Math.max(max, rightInfo.max);
+        }
+        int maxBSTSize = 0;
+        Node maxBSTHead = null;
+        if(leftInfo != null){
+            maxBSTSize = leftInfo.maxBSTSize;
+            maxBSTHead = leftInfo.maxBSTHead;
+        }
+        if(rightInfo != null && rightInfo.maxBSTSize > maxBSTSize){
+            maxBSTSize = rightInfo.maxBSTSize;;
+            maxBSTHead = rightInfo.maxBSTHead;
+        }
+        boolean isBST = false;
+        if(((leftInfo == null) || leftInfo.isBST) && ((rightInfo == null) || rightInfo.isBST)){
+            if(((leftInfo == null) || leftInfo.max < x.val) && ((rightInfo == null) || rightInfo.min > x.val)){
+                isBST = true;
+                maxBSTHead = x;
+                int leftSize = leftInfo == null ? 0 : leftInfo.maxBSTSize;
+                int rightSize = rightInfo == null ? 0 : rightInfo.maxBSTSize;
+                maxBSTSize = leftSize + 1 + rightSize;
+            }
+        }
+        return new Info(maxBSTHead, isBST, min, max, maxBSTSize);
     }
 }
