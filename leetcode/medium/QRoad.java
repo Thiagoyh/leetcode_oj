@@ -19,19 +19,35 @@ package com.lewis.leetcode.medium;
  */
 
 public class QRoad {
-    public static int lampNumber(String s){
-        if(s == null){
+
+    public static int minLight(String s){
+        if(s == null || s.length() == 0){
             return 0;
         }
+
         char[] str = s.toCharArray();
-
-    }
-
-    public static int process(char[] str, int index, boolean flag){
-        if(index == str.length || flag == false){
-            return 0;
+        int ans = 0;
+        int i = 0;
+        while(i < str.length){
+            if(str[i] == 'X'){
+                i++;
+            }
+            else{
+                ++ans;
+                if(i + 1 == str.length || str[i + 1] == 'X'){
+                   break;
+                }
+                else{
+                    if(str[i + 1] == 'X'){
+                        i += 2;
+                    }
+                    else{
+                        i += 3;
+                    }
+                }
+            }
         }
-        return
+        return ans;
     }
 
 }
