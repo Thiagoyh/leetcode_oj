@@ -1,5 +1,7 @@
 #include "bits/stdc++.h"
 
 int main(){
-   std::cout << std::getenv("HOME") << std::endl;
+   int arr[] = {3, 4, 5};
+   std::cout << *(arr + 1) << std::endl;
+   return 0;
 }

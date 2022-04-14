@@ -1,4 +1,4 @@
-package com.lewis.leetcode.medium;
+package com.lewis.leetcode.important;
 
 import java.util.Locale;
 
