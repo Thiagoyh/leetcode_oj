@@ -5,23 +5,21 @@ public class MaxSubStr {
         if(s == null || s.equals("")){
             return 0;
         }
-        char[] str = s.toCharArray();
-        int[] dp = new int[str.length];
-        dp[0] = 1;
-        for(int i = 1; i < str.length; ++i){
-            dp[i] = dp[i - 1] + 1;
-            for(int j = i - 1; j >= i - dp[i - 1]; --j){
-                if(str[j] == str[i]){
-                    dp[i] = (dp[i - 1] -dp[j] + 1);
-                    break;
-                }
-            }
+        char[] chars = s.toCharArray();
+        int[] map = new int[256];
+        for(int i = 0; i < 256; i++){
+            map[i] = -1;
         }
-        int max = Integer.MIN_VALUE;
-        for(int i = 0; i < str.length; ++i){
-            max = dp[i] > max ? dp[i] : max;
+        int len = 0;
+        int pre = -1;
+        int cur = 0;
+        for(int i = 0; i != chars.length; ++i){
+            pre = Math.max(pre, map[chars[i]]);
+            cur = i - pre;
+            len = Math.max(len, cur);
+            map[chars[i]] = i;
         }
-        return max;
+        return len;
     }
 
     public static void main(String[] args) {
