@@ -9,5 +9,10 @@ package com.lewis.leetcode.advanced;
  */
 
 public class SortedArray {
+    public static int[] kMax(int[] a, int[] b, int k){
+        int[] res = new int[k];
+
+        return new int[] {0};
+    }
 
 }
