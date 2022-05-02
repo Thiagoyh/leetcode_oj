@@ -35,6 +35,6 @@ public class CircleLinkedNode {
         while (--tmp != 0){
             head = head.next;
         }
-        return head; 
+        return head;
     }
 }
