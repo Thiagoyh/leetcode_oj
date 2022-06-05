@@ -87,7 +87,7 @@ public:
         }
         std::stack<TreeNode *> stack;
         TreeNode *cur = head;
-        while (cur != nullptr && !stack.empty()) {
+        while (cur != nullptr || !stack.empty()) {
             if (cur != nullptr) {
                 stack.push(cur);
                 cur = cur->left;
@@ -96,6 +96,26 @@ public:
                 cur = stack.top();
                 stack.pop();
                 std::cout << cur->val << std::endl;
+                cur = cur->right;
+            }
+        }
+    }
+
+    void inOrder(TreeNode* root) {
+        if (root == nullptr) {
+            return;
+        }
+        std::stack<TreeNode*> stack;
+        TreeNode* cur = root;
+        while (cur != nullptr || !stack.empty()) {
+            if (cur != nullptr) {
+                stack.push(cur->left);
+                cur = cur->left;
+            }
+            else {
+                cur = stack.top();
+                stack.pop();
+                //
                 cur = cur->right;
             }
         }
