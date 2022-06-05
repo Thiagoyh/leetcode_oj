@@ -125,6 +125,75 @@ public:
             std::cout << cur->val << std::endl;
         }
     }
+
+    void inOrderTraversal(TreeNode* root) {
+        std::stack<TreeNode *> stack;
+        if (root != nullptr)
+            stack.push(root);
+        while (!stack.empty()) {
+            TreeNode* node = stack.top();
+            if (node != nullptr) {
+                stack.pop();
+                if (node->right != nullptr)
+                    stack.push(node->right);
+                stack.push(node);
+                stack.push(nullptr);
+                if (node->left != nullptr)
+                    stack.push(node->left);
+            }else {
+                stack.pop();
+                node = stack.top();
+                stack.pop();
+                std::cout << node->val << std::endl;
+            }
+        }
+    }
+
+    void preOrderTraversal(TreeNode* root) {
+        std::stack<TreeNode *> stack;
+        if (root != nullptr)
+            stack.push(root);
+        while (!stack.empty()) {
+            TreeNode* node = stack.top();
+            if (node != nullptr) {
+                stack.pop();
+                if (node->right != nullptr)
+                    stack.push(node->right);
+                if (node->left != nullptr)
+                    stack.push(node->left);
+                stack.push(node);
+                stack.push(nullptr);
+            }else {
+                stack.pop();
+                node = stack.top();
+                stack.pop();
+                std::cout << node->val << std::endl;
+            }
+        }
+    }
+
+    void postOrderTraversal(TreeNode* root) {
+        std::stack<TreeNode *> stack;
+        if (root != nullptr)
+            stack.push(root);
+        while (!stack.empty()) {
+            TreeNode* node = stack.top();
+            if (node != nullptr) {
+                stack.pop();
+                stack.push(node);
+                stack.push(nullptr);
+                if (node->right != nullptr)
+                    stack.push(node->right);
+                if (node->left != nullptr)
+                    stack.push(node->left);
+            }else {
+                stack.pop();
+                node = stack.top();
+                stack.pop();
+                std::cout << node->val << std::endl;
+            }
+        }
+    }
 };
 
 int main() {
