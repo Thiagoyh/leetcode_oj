@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <stack>
 #include <vector>
 
 struct TreeNode {
@@ -37,7 +38,49 @@ public:
         }
         return res;
     }
-     bool isSymmetric(TreeNode* root) {
 
+    bool process(TreeNode* left, TreeNode* right) {
+        if (left == nullptr && right == nullptr) return true;
+        else if (left != nullptr && right == nullptr) return false;
+        else if (left == nullptr && right != nullptr) return false;
+        else if (left->val != right->val) return false;
+
+        else {
+            bool outside = process(left->left, right->right);
+            bool inside = process(left->right, right->left);
+            return (outside && inside);
+        }
     }
+
+    bool isSymmetric(TreeNode* root) {
+          if (root == nullptr) {
+              return true;
+          }
+          std::queue<TreeNode*> queue;
+          queue.push(root->left);
+          queue.push(root->right);
+
+          while (!queue.empty()) {
+              TreeNode* left = queue.front();
+              queue.pop();
+              TreeNode* right = queue.front();
+              queue.pop();
+
+              if (left == nullptr && right == nullptr) {
+                  continue;
+              }
+
+              if ((left == nullptr || right == nullptr) ||
+                  (left->val != right->val)) {
+                      return false;
+                  }
+               queue.push(left->left);
+               queue.push(right->right);
+               queue.push(left->right);
+               queue.push(right->left);
+          }
+          return true;
+     }
+
+
 };
