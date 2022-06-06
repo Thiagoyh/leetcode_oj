@@ -82,5 +82,37 @@ public:
           return true;
      }
 
+     int maxDepth(TreeNode* root) {
+         if (root == nullptr) {
+             return 0;
+         }
+         int res = 0;
+         std::queue<TreeNode*> queue;
+         queue.push(root);
+         while (!queue.empty()) {
+             int size = queue.size();
+             if (size > 0) {
+                 res++;
+             }
+             for (int i = 0; i < size; ++i) {
+                 TreeNode* cur = queue.front();
+                 queue.pop();
+                 if (cur->left != nullptr)
+                    queue.push(cur->left);
+                 if (cur->right != nullptr)
+                    queue.push(cur->right);
+             }
+         }
+         return res;
+     }
 
+     int maxProcess(TreeNode* root) {
+         if (root == nullptr) {
+             return 0;
+         }
+         int maxLeft = maxProcess(root->left);
+         int maxRight = maxProcess(root->right);
+
+         return 1 + std::max(maxLeft, maxRight);
+     }
 };
