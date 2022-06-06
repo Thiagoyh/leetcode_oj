@@ -13,12 +13,28 @@ struct TreeNode {
 class Solution {
 public:
     int minDepth(TreeNode* root) {
-           if (root == nullptr) {
+         if (root == nullptr) {
              return 0;
          }
-         int maxLeft = minDepth(root->left);
-         int maxRight = minDepth(root->right);
-
-         return 1 + std::min(maxLeft, maxRight);
+         return process(root);
+    }
+    int process(TreeNode* root) {
+        if (root->left == nullptr && root->right == nullptr) {
+            return 0;
+        }
+        int min = __INT32_MAX__;
+        if (root->left == nullptr) {
+            int depth = process(root->right);
+            min = depth < min ? depth : min;
+            return 1 + min;
+        }
+        if (root->right == nullptr) {
+            int depth = process(root->left);
+            min = depth < min ? depth : min;
+            return 1 + min;
+        }
+        int left = process(root->left);
+        int right = process(root->right);
+        return 1 + std::min(left, right);
     }
 };
