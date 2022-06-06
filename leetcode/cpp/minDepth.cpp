@@ -16,7 +16,28 @@ public:
          if (root == nullptr) {
              return 0;
          }
-         return process(root);
+         std::queue<TreeNode*> queue;
+         int res = 0;
+         queue.push(root);
+
+         while (!queue.empty()) {
+             int size = queue.size();
+             res++;
+             for (int i = 0; i < size; i++) {
+                 TreeNode* node = queue.front();
+                 queue.pop();
+                 if (node->left == nullptr && node->right == nullptr) {
+                     return res;
+                 }
+                 if (node->left != nullptr) {
+                     queue.push(node->left);
+                 }
+                 if (node->right != nullptr) {
+                     queue.push(node->right);
+                 }
+             }
+         }
+         return res;
     }
     int process(TreeNode* root) {
         if (root == nullptr) {
