@@ -12,7 +12,7 @@ struct TreeNode {
 
 class Solution {
 public:
-    int findBottomLeftValue(TreeNode* root) {
+int findBottomLeftValue(TreeNode* root) {
         if (root == nullptr) {
             return 0;
         }
@@ -24,7 +24,7 @@ public:
             for (int i = 0; i < size; i++) {
                 TreeNode* cur = queue.front();
                 queue.pop();
-                if (i = 0) {
+                if (i == 0) {
                     res = cur->val;
                 }
                 if (cur->left != nullptr) {
