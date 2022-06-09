@@ -1,4 +1,4 @@
-
+#include <stack>
 struct TreeNode {
     int val;
     TreeNode* left;
@@ -24,5 +24,17 @@ public:
         else {
             return searchBST(root->right, val);
         }
+    }
+    TreeNode* search(TreeNode* root, int val) {
+        while (root != nullptr) {
+            if (root->val > val) {
+                root = root->left;
+            }
+            else if (root->val < val) {
+                root = root->right;
+            }
+            else return root;
+        }
+        return nullptr;
     }
 };
