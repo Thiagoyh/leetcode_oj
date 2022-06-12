@@ -15,6 +15,16 @@ struct TreeNode {
 class Solution {
 public:
     vector<int> findMode(TreeNode* root) {
+        std::vector<int> nums;
+        process(root, nums);
 
+    }
+    void process(TreeNode* root, std::vector<int>& res) {
+        if (root == nullptr) {
+            return;
+        }
+        process(root->left, res);
+        res.push_back(root->val);
+        process(root->right, res);
     }
 };
