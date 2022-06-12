@@ -13,55 +13,44 @@ struct TreeNode {
              val(val), left(left), right(right) {}
 };
 
-struct temp {
-    bool operator()(std::pair<int, int> a, std::pair<int, int> b) {
-        return a.second < b.second;
-    }
-};
 class Solution {
 public:
-    int pre = (1 << 6);
+    TreeNode* pre = nullptr;
+    std::vector<int> res;
+    int count;
+    int max;
     vector<int> findMode(TreeNode* root) {
-        std::vector<int> res;
         if (root == nullptr) {
             return res;
         }
-        std::vector<int> nums;
-        process(root, nums);
-        std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, temp> queue;
-        int pre = nums[0];
-        int count = 1;
-        for (int i = 1; i < nums.size(); ++i) {
-            if (nums[i] == pre) {
-                count++;
-            }
-            else {
-                queue.push(std::pair<int, int>(pre, count));
-                count = 1;
-                pre = nums[i];
-            }
-        }
-        queue.push(std::pair<int, int>(nums[nums.size() - 1], count));
-        pre = queue.top().second;
-        res.push_back(queue.top().first);
-        queue.pop();
-        while (!queue.empty()) {
-            if (queue.top().second == pre) {
-                res.push_back(queue.top().first);
-                queue.pop();
-            }
-            else {
-                break;
-            }
-        }
+        process(root);
         return res;
     }
-    void process(TreeNode* root, std::vector<int>& nums) {
+    void process(TreeNode* root) {
         if (root == nullptr) {
             return;
         }
-        process(root->left, nums);
-        nums.push_back(root->val);
-        process(root->right, nums);
+        process(root->left);
+        if (pre == nullptr) {
+            count = 1;
+        }
+        else {
+            if (root->val == pre->val) {
+                count++;
+            }
+            else {
+                count = 1;
+            }
+        }
+        pre = root;
+        if (count == max) {
+            res.push_back(root->val);
+        }
+        if (count > max) {
+            max = count;
+            res.clear();
+            res.push_back(root->val);
+        }
+        process(root->right);
     }
 };
