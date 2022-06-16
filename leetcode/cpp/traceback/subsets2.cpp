@@ -19,7 +19,11 @@ public:
     void process(std::vector<std::vector<int>>& res, std::vector<int>& path,
                  std::vector<int>& nums, int index) {
         if (index >= nums.size()) {
-            res.push_back(path);
+            if (path.size() >= 2) {
+                res.push_back(path);
+                return;
+            }
+            else return;
         }
 
         path.push_back(nums[index]);
