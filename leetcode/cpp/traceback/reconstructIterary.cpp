@@ -23,6 +23,9 @@ public:
             std::sort(it->second.begin(), it->second.end());
         }
         for (int i = 0; i < map["JFK"].size(); ++i) {
+            if (res.size() != 0) {
+                return res;
+            }
             path.push_back("JFK");
             path.push_back(map["JFK"][i]);
             used_set["JFK." + map["JFK"][i]]--;
@@ -47,8 +50,8 @@ public:
             if (used_set[target + "." + map[target][i]] == 0) {
                 continue;
             }
-            if (res.size() != 0 && !compare(res[path.size()], map[target][i])) {
-                continue;
+            if (res.size() != 0) {
+                return;
             }
             path.push_back(map[target][i]);
             used_set[target + "." + map[target][i]]--;
@@ -57,17 +60,5 @@ public:
             path.pop_back();
         }
 
-    }
-
-    bool compare(std::string& in_res, std::string& in_path) {
-        for (int i = 0; i < in_path.size() && i < in_res.size(); ++i) {
-            if (in_path[i] < in_res[i]) {
-                return true;
-            }
-            if (in_path[i] > in_res[i]) {
-                return false;
-            }
-        }
-        return in_path.size() < in_res.size();
     }
 };
